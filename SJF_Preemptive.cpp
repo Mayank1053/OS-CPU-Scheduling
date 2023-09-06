@@ -31,7 +31,7 @@ int main() {
     }
 
     while (true) {
-        int min = 9999, c = n;
+        int min = INT_MAX, c = n;
         bool allCompleted = true;
 
         for (i = 0; i < n; i++) {
