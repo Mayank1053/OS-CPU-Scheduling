@@ -32,11 +32,9 @@ int main() {
     int f[n] = {0};
 
     for (int i = 0; i < n; i++) {
-        cout << "Enter AT of Process P" << (i + 1) << ": ";
-        cin >> arrival_time[i];
-        cout << "Enter BT of Process P" << (i + 1) << ": ";
-        cin >> brust_time[i];
         ProccesId[i] = i + 1;
+        cout << "Enter AT and BT of Process P" << ProccesId[i] << ": ";
+        cin >> arrival_time[i] >> brust_time[i];
     }
 
     sort(ProccesId, brust_time, arrival_time, n);

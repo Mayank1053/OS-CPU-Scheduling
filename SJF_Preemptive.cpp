@@ -22,10 +22,8 @@ int main() {
 
     for (i = 0; i < n; i++) {
         pid[i] = i + 1;
-        cout << "Enter AT of process P" << (i + 1) << ": ";
-        cin >> at[i];
-        cout << "Enter BT of process P" << (i + 1) << ": ";
-        cin >> bt[i];
+        cout << "Enter AT and BT of process P" << (i + 1) << ": ";
+        cin >> at[i] >> bt[i];
         k[i] = bt[i];
         f[i] = 0;
     }
@@ -64,6 +62,7 @@ int main() {
     for (i = 0; i < n; i++) {
         wt[i] = tat[i] - k[i];
         avgtat += tat[i];
+        avgwt += wt[i];
     }
 
     cout << "PID\tAT\tBT\tCT\tTAT\tWT\n";
@@ -71,7 +70,7 @@ int main() {
         cout << pid[i] << "\t" << at[i] << "\t" << k[i] << "\t" << ct[i] << "\t" << tat[i] << "\t" << wt[i] << "\n";
     }
 
-    cout << "Avg. TAT is " << (float)(avgtat / n) << "\n";
-    
+    cout << "Avg. TAT is " << (float)(avgtat / n) << "  Avg. WT is " << (float)(avgwt / n) << "\n";
+
     return 0;
 }
