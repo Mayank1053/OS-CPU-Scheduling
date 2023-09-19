@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <iomanip> // Include this for setw
 using namespace std;
 
 class FCFS {
@@ -18,10 +17,8 @@ public:
         string st = "P";
         for (int i = 0; i < noOfProcess; i++) {
             pId[i] = st + to_string(i);
-            cout << "Enter BT for process " << pId[i] << ": ";
-            cin >> bt[i];
-            cout << "Enter AT for process " << pId[i] << ": ";
-            cin >> at[i];
+            cout << "Enter BT and AT for process " << pId[i] << ": ";
+            cin >> bt[i] >> at[i];
         }
     }
 
@@ -66,13 +63,13 @@ public:
         float avgTAT = sum / noOfProcess;
 
         cout << "\n";
-        cout << setw(20) << "pId" << setw(20) << "BT" << setw(20) << "AT" << setw(20) << "CT" << setw(20) << "WT" << setw(20) << "TAT" << endl;
+        cout << "    " << "pId" << "   " << "BT" << "   " << "AT" << "   " << "CT" << "    " << "WT" << "    " << "TAT" << endl;
 
         for (int i = 0; i < noOfProcess; i++) {
-            cout << setw(20) << pId[i] << setw(20) << bt[i] << setw(20) << at[i] << setw(20) << ct[i] << setw(20) << wt[i] << setw(20) << tat[i] << endl;
+            cout << "    " << pId[i] << "    " << bt[i] << "    " << at[i] << "    " << ct[i] << "    " << wt[i] << "    " << tat[i] << endl;
         }
 
-        cout << setw(10) << "Average" << setw(20) << avgWT << setw(20) << avgTAT << endl;
+        cout << "   " << "Average WT:" << " " << avgWT << "    " << "Average TAT:" << " " << avgTAT << endl;
     }
 };
 
