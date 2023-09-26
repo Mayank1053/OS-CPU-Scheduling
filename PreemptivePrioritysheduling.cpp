@@ -1,52 +1,57 @@
 #include <iostream>
+#include <algorithm> // Include the algorithm library for sorting
 using namespace std;
+
+struct Process {
+    int pid, at, bt, ct, tat, wt, rt, priority;
+};
+
+bool compareArrivalTime(const Process &a, const Process &b) {
+    return a.at < b.at; // Compare processes based on arrival time
+}
 
 int main() {
     int n;
     cout << "Enter no. of processes: ";
     cin >> n;
     
-    int pid[n], at[n], bt[n], ct[n], tat[n], wt[n], rt[n], priority[n];
+    Process processes[n];
     int currentTime = 0, total = 0;
     float avgWT = 0, avgTAT = 0;
 
     for (int i = 0; i < n; i++) {
-        cout << "Enter arrival time of process P" << (i + 1) << ": ";
-        cin >> at[i];
-        
-        cout << "Enter burst time of process P" << (i + 1) << ": ";
-        cin >> bt[i];
-        rt[i] = bt[i];
-
-        cout << "Enter priority of process P" << (i + 1) << ": ";
-        cin >> priority[i];
-
-        pid[i] = i + 1;
+        cout << "Enter AT, BT, and Priority of process P" << (i + 1);
+        cin >> processes[i].at >> processes[i].bt >> processes[i].priority;
+        processes[i].rt = processes[i].bt;
+        processes[i].pid = i + 1;
     }
+
+    // Sort processes based on arrival time
+    sort(processes, processes + n, compareArrivalTime);
 
     while (total != n) {
         int maxPriority = INT_MAX;
         int maxP = -1;
 
         for (int i = 0; i < n; i++) {
-            if (at[i] <= currentTime && priority[i] < maxPriority && rt[i] > 0) {
-                maxPriority = priority[i];
+            if (processes[i].at <= currentTime && processes[i].priority < maxPriority && processes[i].rt > 0) {
+                maxPriority = processes[i].priority;
                 maxP = i;
             }
         }
 
         if (maxP != -1) {
-            rt[maxP]--;
+            processes[maxP].rt--;
             currentTime++;
 
-            if (rt[maxP] == 0) {
+            if (processes[maxP].rt == 0) {
                 total++;
-                ct[maxP] = currentTime;
-                tat[maxP] = ct[maxP] - at[maxP];
-                wt[maxP] = tat[maxP] - bt[maxP];
+                processes[maxP].ct = currentTime;
+                processes[maxP].tat = processes[maxP].ct - processes[maxP].at;
+                processes[maxP].wt = processes[maxP].tat - processes[maxP].bt;
 
-                avgTAT += tat[maxP];
-                avgWT += wt[maxP];
+                avgTAT += processes[maxP].tat;
+                avgWT += processes[maxP].wt;
             }
         } else {
             currentTime++;
@@ -58,8 +63,8 @@ int main() {
 
     cout << "PID\tAT\tPriority\tBT\tCT\tTAT\tWT" << endl;
     for (int i = 0; i < n; i++) {
-        cout << pid[i] << "\t" << at[i] << "\t" << priority[i] << "\t\t" << bt[i] << "\t" <<
-                ct[i] << "\t" << tat[i] << "\t" << wt[i] << endl;
+        cout << processes[i].pid << "\t" << processes[i].at << "\t" << processes[i].priority << "\t\t" << processes[i].bt << "\t" <<
+                processes[i].ct << "\t" << processes[i].tat << "\t" << processes[i].wt << endl;
     }
     cout << "Average TAT: " << avgTAT << endl;
     cout << "Average WT: " << avgWT << endl;
