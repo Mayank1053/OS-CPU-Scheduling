@@ -62,14 +62,14 @@ void output(Process processes[], const int n) {
         return p1.pid < p2.pid;
     });
 
-    cout << "Process\tArrival Time\tBurst Time\tCompletion Time\tWaiting Time\tTurnaround Time\n";
+    cout << "PID\tAT\tBurst Time\tCT\tWT\tTAT\n";
     for (int i = 0; i < n; i++) {
-        cout << processes[i].pid << "\t\t" << processes[i].arrivalTime << "\t\t" << processes[i].burstTime << "\t\t" << processes[i].completionTime << "\t\t" << processes[i].waitingTime << "\t\t" << processes[i].turnaroundTime << endl;
+        cout << processes[i].pid << "\t" << processes[i].arrivalTime << "\t" << processes[i].burstTime << "\t" << processes[i].completionTime << "\t" << processes[i].waitingTime << "\t" << processes[i].turnaroundTime << endl;
         avgWaitingTime += processes[i].waitingTime;
         avgTurnaroundTime += processes[i].turnaroundTime;
     }
-    cout << "Average Waiting Time: " << avgWaitingTime / n << endl;
-    cout << "Average Turnaround Time: " << avgTurnaroundTime / n << endl;
+    cout << "Average WT: " << avgWaitingTime / n << endl;
+    cout << "Average TAT: " << avgTurnaroundTime / n << endl;
 }
 
 void roundRobin(Process processes[], int n, int quantum) {

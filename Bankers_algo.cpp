@@ -61,22 +61,33 @@ public:
         calc_need();
         bool *done = new bool[no_p];
         int j = 0;
+        // Print the Need matrix
+        cout << "Need Matrix is:\n";
+        for (int i = 0; i < no_p; i++) {
+            for (int j = 0; j < no_r; j++) {
+                cout << need[i][j] << " ";
+            }
+            cout << endl;
+        }
+        cout << "Allocated Processess: ";
         while (j < no_p) {
             bool allocate = false;
             for (int i = 0; i < no_p; i++)
                 if (!done[i] && check(i)) {
                     for (int k = 0; k < no_r; k++)
                         available[0][k] = available[0][k] - need[i][k] + max[i][k];
-                    cout << "Allocated Process " << i << "\n";
+                    
+                    cout << i << "-->";
                     allocate = done[i] = true;
                     j++;
                 }
             if (!allocate) break;
         }
         if (j == no_p)
-            cout << "\nSafely executed\n";
+            cout << "\nSafely executed!\n";
         else
             cout << "All processes can't be safely executed\n";
+
     }
 };
 
